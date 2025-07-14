@@ -12,7 +12,6 @@ config = {
     'freshrss_username': os.environ.get('FRESHRSS_USERNAME'),
     'freshrss_api_password': os.environ.get('FRESHRSS_API_PASSWORD'),
 }
-print("DEBUG: config =", config)  # 添加此行
 
 app = Flask(__name__)
 
