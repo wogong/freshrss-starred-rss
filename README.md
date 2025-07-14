@@ -21,9 +21,9 @@ An Atom feed exporter for FreshRSS starred items.
    cd freshrss-starred
    ```
 
-2. Copy the example configuration file and update it with your FreshRSS details:
+2. Copy the example environment file and update it with your FreshRSS details:
    ```
-   cp config.example.json config.json
+   cp .env.example .env
    ```
 
 3. Install the required dependencies:
@@ -49,11 +49,11 @@ You can also deploy using Docker or Docker Compose (instructions to be added).
 
 ## Configuration
 
-Edit `config.json` to set the following parameters:
+Edit the `.env` file or set the following environment variables:
 
-- `freshrss_url`: Your FreshRSS instance URL
-- `freshrss_username`: Your FreshRSS user name
-- `freshrss_api_password`: Your FreshRSS API password
+- `FRESHRSS_URL`: Your FreshRSS instance URL (with trailing slash)
+- `FRESHRSS_USERNAME`: Your FreshRSS user name
+- `FRESHRSS_API_PASSWORD`: Your FreshRSS API password
 
 ## Customization
 

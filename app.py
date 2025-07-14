@@ -1,10 +1,18 @@
 import xml.etree.ElementTree as ET
 from flask import Flask, Response
-import schedule
 import time
+import os
+from dotenv import load_dotenv
 from freshrss import FreshRss
-from helpers import read_config_file
-config = read_config_file()
+
+load_dotenv()
+
+config = {
+    'freshrss_url': os.environ.get('FRESHRSS_URL'),
+    'freshrss_username': os.environ.get('FRESHRSS_USERNAME'),
+    'freshrss_api_password': os.environ.get('FRESHRSS_API_PASSWORD'),
+}
+print("DEBUG: config =", config)  # 添加此行
 
 app = Flask(__name__)
 
@@ -25,7 +33,8 @@ def generate_rss(items):
         entry = ET.SubElement(channel, 'item')
         ET.SubElement(entry, 'title').text = item['title']
         ET.SubElement(entry, 'link').text = item['alternate'][0]['href']
-        ET.SubElement(entry, 'description').text = item.get('summary', {}).get('content', '')
+        #ET.SubElement(entry, 'description').text = item.get('summary', {}).get('content', '')
+        ET.SubElement(entry, 'description').text = 'remove full text for personal usage.'
         ET.SubElement(entry, 'pubDate').text = time.strftime('%a, %d %b %Y %H:%M:%S +0000', time.gmtime(item['published']))
 
     return ET.tostring(rss, encoding='unicode')
@@ -36,14 +45,8 @@ def serve_rss():
     rss_content = generate_rss(items)
     return Response(rss_content, mimetype='application/rss+xml')
 
-def update_rss():
-    print("Updating RSS feed...")
-    items = get_starred_items()
-    rss_content = generate_rss(items)
-    with open('starred.xml', 'w', encoding='utf-8') as f:
-        f.write(rss_content)
+
 
 if __name__ == '__main__':
-    schedule.every(12).hours.do(update_rss)
-    update_rss()  # initial update
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)

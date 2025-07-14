@@ -1,6 +1,0 @@
-
-{
-    "freshrss_username": "Your FreshRSS user name",
-    "freshrss_api_password": "Your FreshRSS API password. See https://freshrss.github.io/FreshRSS/en/users/06_Mobile_access.html",
-    "freshrss_url": "Your FreshRSS URL with trailing slash, e.g. https://rss.example.org/"
-}

@@ -1,10 +1,12 @@
-version: '3'
 services:
   freshrss-starred:
     build: .
+    container_name: freshrss-starred
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     volumes:
       - .:/app
+      - ./config.docker.json:/app/config.json
     environment:
       - FLASK_ENV=development
+    restart: always
